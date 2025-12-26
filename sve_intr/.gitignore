@@ -1,3 +1,4 @@
-.clangd
+.*
 builddir
 meson.build
+compile_commands.json

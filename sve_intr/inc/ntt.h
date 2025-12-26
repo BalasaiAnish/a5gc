@@ -43,14 +43,35 @@ inline svint16_t svcat16_s16(svint16_t, svint16_t, svint16_t, svint16_t,
     svint16_t, svint16_t, svint16_t, svint16_t,
     unsigned int);
 
+inline svint16_t svcat32_s16(svint16_t, svint16_t, svint16_t, svint16_t,
+    svint16_t, svint16_t, svint16_t, svint16_t,
+    svint16_t, svint16_t, svint16_t, svint16_t,
+    svint16_t, svint16_t, svint16_t, svint16_t,
+    svint16_t, svint16_t, svint16_t, svint16_t,
+    svint16_t, svint16_t, svint16_t, svint16_t,
+    svint16_t, svint16_t, svint16_t, svint16_t,
+    svint16_t, svint16_t, svint16_t, svint16_t,
+    unsigned int);
+
 inline void butterfly_level0(int16_t [256], int16_t, unsigned int, unsigned int);
 
 inline void butterfly_level1(int16_t [256], int16_t, int16_t, unsigned int, unsigned int, unsigned int);
 
 inline void butterfly_level2(int16_t [256], int16_t, int16_t, int16_t, int16_t,
     unsigned int, unsigned int, unsigned int, unsigned int, unsigned int);
+
 inline void butterfly_level3(int16_t [256], int16_t, int16_t, int16_t , int16_t,
     int16_t, int16_t, int16_t, int16_t,
+    unsigned int, unsigned int, unsigned int, unsigned int,
+    unsigned int, unsigned int, unsigned int, unsigned int,
+    unsigned int);
+
+inline void butterfly_level4(int16_t [256], int16_t, int16_t, int16_t , int16_t,
+    int16_t, int16_t, int16_t, int16_t,
+    int16_t, int16_t, int16_t , int16_t,
+    int16_t, int16_t, int16_t, int16_t,
+    unsigned int, unsigned int, unsigned int, unsigned int,
+    unsigned int, unsigned int, unsigned int, unsigned int,
     unsigned int, unsigned int, unsigned int, unsigned int,
     unsigned int, unsigned int, unsigned int, unsigned int,
     unsigned int);
