@@ -12,6 +12,5 @@ This project uses
 - Arm GNU toolchain for Linux
 - QEMU
 ## TO DO
-- Optimize memory load and stores
-- Create abstractions to handle loading, storing, and concatenating multiple vectors
+- Check fqmul and mont red
 - Add regression test with reference code

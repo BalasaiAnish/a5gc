@@ -1,4 +1,4 @@
 .*
-builddir
-meson.build
 compile_commands.json
+*.o
+*.s

@@ -7,10 +7,10 @@
       "-I./inc",
       "-o",
       "test.o",
-      "./src/ntt.c"
+      "./src/ntt128.c"
     ],
     "directory": "/home/bala/git_stuff/el/pbl/sve_intr",
-    "file": "/home/bala/git_stuff/el/pbl/sve_intr/src/ntt.c",
+    "file": "/home/bala/git_stuff/el/pbl/sve_intr/src/ntt128.c",
     "output": "/home/bala/git_stuff/el/pbl/sve_intr/test.o"
   },
   {
