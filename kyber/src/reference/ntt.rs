@@ -1,3 +1,5 @@
+use cfg_if;
+
 use crate::reduce::*;
 
 // Code to generate zetas used in the number-theoretic transform:
@@ -59,45 +61,51 @@ pub fn fqmul(a: i16, b: i16) -> i16 {
     montgomery_reduce(a as i32 * b as i32)
 }
 
-/// Name:  ntt
-///
-/// Description: Inplace number-theoretic transform (NTT) in Rq
-///  input is in standard order, output is in bitreversed order
-///
-/// Arguments:   - i16 r[256]: input/output vector of elements of Zq
-// pub fn ntt(r: &mut [i16]) {
-//     let mut j;
-//     let mut k = 1usize;
-//     let mut len = 128;
-//     let (mut t, mut zeta);
+cfg_if::cfg_if! {
+    if #[cfg(all(target_arch = "aarch64",feature = "sve"))] {
+        #[link(name = "ntt_sve128")]
+        unsafe extern "C" {
+            fn ntt_sve128(r: *mut i16);
+        }
 
-//     while len >= 2 {
-//         let mut start = 0;
-//         while start < 256 {
-//             zeta = ZETAS[k];
-//             k += 1;
-//             j = start;
-//             while j < (start + len) {
-//                 t = fqmul(zeta, r[j + len]);
-//                 r[j + len] = r[j] - t;
-//                 r[j] += t;
-//                 j += 1;
-//             }
-//             start = j + len;
-//         }
-//         len >>= 1;
-//     }
-// }
-
-#[link(name = "ntt_sve128")]
-unsafe extern "C" {
-    fn ntt_sve128(r: *mut i16);
-}
-
-pub fn ntt(r: &mut [i16]) {
-    unsafe {
-        ntt_sve128(r.as_mut_ptr());
+        pub fn ntt(r: &mut [i16]) {
+            unsafe {
+                ntt_sve128(r.as_mut_ptr());
+            }
+        }
     }
+    else {
+        /// Name:  ntt
+        ///
+        /// Description: Inplace number-theoretic transform (NTT) in Rq
+        ///  input is in standard order, output is in bitreversed order
+        ///
+        /// Arguments:   - i16 r[256]: input/output vector of elements of Zq
+        pub fn ntt(r: &mut [i16]) {
+            let mut j;
+            let mut k = 1usize;
+            let mut len = 128;
+            let (mut t, mut zeta);
+
+            while len >= 2 {
+                let mut start = 0;
+                while start < 256 {
+                    zeta = ZETAS[k];
+                    k += 1;
+                    j = start;
+                    while j < (start + len) {
+                        t = fqmul(zeta, r[j + len]);
+                        r[j + len] = r[j] - t;
+                        r[j] += t;
+                        j += 1;
+                    }
+                    start = j + len;
+                }
+                len >>= 1;
+            }
+        }
+    }
+
 }
 
 /// Name:  invntt
