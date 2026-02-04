@@ -66,9 +66,9 @@ hazmat = []
 # attack resistance. Suggest benchmarking for comparison.
 90s-fixslice = ["90s", "aes", "ctr"]
 
-# Use avx2 intrinsics on x86 architectures
+# Use avx2 intrinsics on x86 architectures, silencing warnings for ARM platforms
 # Wont compile if the platform doesn't support it
-# avx2 = ["cc"]
+avx2 = []
 
 # For compiling to wasm targets
 wasm = ["wasm-bindgen", "getrandom", "rand"]
@@ -86,6 +86,10 @@ benchmarking = ["criterion"]
 
 # For SVE
 sve = []
+
+# Dummy, warning silencing
+# fuzzing = []
+# kyber_kat = []
 
 # Prevents leak sanitiser failing in tests
 [profile.test]
